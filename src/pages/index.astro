@@ -1,0 +1,40 @@
+---
+import Card from "@/components/Card.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { db, Plant } from "astro:db";
+
+const plants = await db.select().from(Plant);
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const action = data.get("action");
+
+    if (action === "add-plant") {
+      const res = await fetch(`${Astro.url.origin}/api/addPlant.json.ts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    }
+    if (action === "mark-watered") {
+    }
+    if (action === "move-to-today") {
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<MainLayout>
+  <div
+    class="grid gap-8 sm:gap-12 grid-cols-autofill justify-center items-start"
+  >
+    {plants.map((plant) => <Card item={plant} />)}
+  </div>
+</MainLayout>

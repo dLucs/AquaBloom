@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon/components";
+import Button from "@/components/Button";
+import AddPlantModal from "@/components/AddPlantModal";
+const siteData = {
+  title: "AquaBloom",
+  description: "A watering tracking App for your plants.",
+};
+const { title = siteData.title, description = siteData.description } =
+  Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body
+    class="grid-rows-[auto_1fr_auto] min-h-screen font-serif max-w-[2000px] mx-auto text-slate-950 bg-slate-50 grid gap-8"
+  >
+    <nav class="shadow-md">
+      <div class="container py-3 flex items-center justify-between">
+        <a
+          href="/"
+          aria-label="Go Home"
+          class="hover:text-slate-800 transition-all focus:outline-none focus-visible:ring-4 ring-offset-2 ring-slate-950 ring-offset-slate-50 flex items-center gap-1.5"
+        >
+          <Icon name="logo" size={36} />
+          <span class="font-bold text-2xl mt-1">AquaBloom</span>
+        </a>
+        <AddPlantModal client:load />
+      </div>
+    </nav>
+    <main class="container">
+      <slot />
+    </main>
+    <footer
+      class="p-4 w-screen flex items-center justify-center border-t-2 border-slate-200"
+    >
+      <Icon name="logo" size={36} />
+      <span class="font-bold text-2xl mt-1">AquaBloom</span>
+    </footer>
+  </body>
+</html>
